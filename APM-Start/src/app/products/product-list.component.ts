@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product'
 import { ProductService } from './product.service';
-import { ConstantPool } from '@angular/compiler';
 
 @Component({
     selector: 'pm-products',
@@ -10,6 +9,7 @@ import { ConstantPool } from '@angular/compiler';
 })
 export class ProductListComponent implements OnInit {
     pageTitle: string = 'Product List';
+    errorMessage: string = '';
     imageWidth: number = 50;
     imageMargin: number = 2;
     showImage: boolean = false;
@@ -47,8 +47,12 @@ export class ProductListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('Initialized!!!');
-        this.products = this.productService.getProducts();
-        this.filteredProducts = this.products;
+        this.productService.getProducts().subscribe({
+            next: products => {
+                this.products = products;
+                this.filteredProducts = this.products;
+            },
+            error: err => this.errorMessage = err
+        });
     }
 }
