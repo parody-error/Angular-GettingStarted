@@ -12,6 +12,7 @@ import { ConvertToCharacterPipe } from './shared/convert-to-character.pipe';
 import { ProductDetailComponent } from './products/product-detail.component';
 import { ProductDetailGuard } from './products/product-detail.guard';
 import { WelcomeComponent } from './home/welcome.component';
+import { ErrorComponentComponent } from './home/error-component.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { WelcomeComponent } from './home/welcome.component';
     ConvertToSpacesPipe,
     ConvertToCharacterPipe,
     ProductDetailComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ErrorComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +33,9 @@ import { WelcomeComponent } from './home/welcome.component';
       { path: 'products', component: ProductListComponent },
       { path: 'products/:id', canActivate: [ProductDetailGuard], component: ProductDetailComponent },
       { path: 'welcome', component: WelcomeComponent },
+      { path: 'error', component: ErrorComponentComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
+      { path: '**', redirectTo: 'error', pathMatch: 'full' }
     ])
   ],
   bootstrap: [AppComponent]
